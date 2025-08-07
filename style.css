@@ -3,3 +3,6 @@ body {
   color: white;
   font-family: system-ui, sans-serif;
 }
+.logo {
+  height: 24px;
+}
