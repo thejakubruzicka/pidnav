@@ -4,90 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Odjezdy MHD</title>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
-  <style>
-    body { padding: 2rem; font-family: system-ui; }
-    .card { border: 1px solid #ccc; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; }
-    .logo { width: 40px; height: 40px; object-fit: contain; }
-    .row { display: flex; gap: 1rem; align-items: center; }
-  </style>
+  <title>Odjezdy PID</title>
+  <link href="style.css" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <main id="root"></main>
-
-  <script type="text/babel">
-    const { useEffect, useState } = React;
-
-    const CARRIER_LOGOS = {
-      'Dopravní podnik města Ústí nad Labem': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Dopravn%C3%AD_podnik_m%C4%9Bsta_%C3%9Ast%C3%AD_nad_Labem_logo.svg/2560px-Dopravn%C3%AD_podnik_m%C4%9Bsta_%C3%9Ast%C3%AD_nad_Labem_logo.svg.png',
-      'ARRIVA': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Arriva_Logo.svg/2560px-Arriva_Logo.svg.png',
-      'BusLine': 'https://www.busline.cz/assets/theme/images/logo-busline.png',
-    };
-
-    const MOCK_DATA = [
-      { line: 'A11', headsign: 'Centrum', departure: 5, delay: 0, carrier: 'ARRIVA' },
-      { line: 'T2', headsign: 'Severní Terasa', departure: 12, delay: 3, carrier: 'Dopravní podnik města Ústí nad Labem' },
-      { line: 'R20', headsign: 'Praha hl.n.', departure: 25, delay: 0, carrier: 'BusLine' },
-    ];
-
-    function App() {
-      const [departures, setDepartures] = useState([]);
-      const [stationId, setStationId] = useState("10533");
-      const [loading, setLoading] = useState(true);
-      const [error, setError] = useState(false);
-
-      const fetchDepartures = async () => {
-        setLoading(true);
-        setError(false);
-        try {
-          const res = await fetch(`https://tabule.dopravauk.cz/api/v1-tabule/basic/${stationId}`);
-          const data = await res.json();
-          if (!data.departures) throw new Error();
-          setDepartures(data.departures);
-        } catch {
-          setDepartures(MOCK_DATA);
-          setError(true);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      useEffect(() => {
-        fetchDepartures();
-        const interval = setInterval(fetchDepartures, 30000);
-        return () => clearInterval(interval);
-      }, [stationId]);
-
-      return (
-        <div>
-          <h1>📍 Odjezdy ze zastávky</h1>
-          <label>ID zastávky: 
-            <input value={stationId} onChange={(e) => setStationId(e.target.value)} />
-          </label>
-          {error && <p style={{color: 'orange'}}>⚠️ Zobrazeny náhradní spoje (API nedostupné)</p>}
-          {loading ? <p>Načítám...</p> : (
-            <div>
-              {departures.map((dep, idx) => (
-                <div key={idx} className="card row">
-                  <img className="logo" src={CARRIER_LOGOS[dep.carrier] || 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'} alt={dep.carrier} />
-                  <div>
-                    <strong>{dep.line} → {dep.headsign}</strong><br />
-                    Odjezd za {dep.departure} min {dep.delay > 0 && `(+${dep.delay} min)`}<br />
-                    <small>{dep.carrier}</small>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      );
-    }
-
-    ReactDOM.render(<App />, document.getElementById('root'));
-  </script>
+<body class="bg-gray-900 text-white font-sans">
+  <div id="root" class="p-4"></div>
+  <script src="app.js"></script>
 </body>
 </html>
