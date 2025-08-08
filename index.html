@@ -1,48 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Odjezdy — Ústecký kraj (dark)</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<title>Odjezdy (Ústecký kraj)</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="container">
-    <header class="header">
-      <div>
-        <h1>📍 Odjezdy (Ústecký kraj)</h1>
-        <p class="subtitle">Tmavý mód — data z tabule.dopravauk.cz (QRide)</p>
-      </div>
-      <div class="header-actions">
-        <label class="small muted">Proxy
-          <input id="useProxy" type="checkbox" />
-        </label>
-      </div>
-    </header>
+    <h1>📍 Odjezdy (Ústecký kraj)</h1>
+    <p>Tmavý mód — data z <a href="https://tabule.dopravauk.cz" target="_blank">tabule.dopravauk.cz</a></p>
+    
+    <input id="stationId" placeholder="ID stanice" value="1737">
+    <button id="loadBtn">Hledat / Načíst</button>
+    <button id="refreshBtn">Aktualizovat</button>
 
-    <section class="controls">
-      <div class="row">
-        <input id="stationInput" class="input" placeholder="Zadej ID zastávky (např. 1737) nebo název" />
-        <button id="searchBtn" class="btn primary">Hledat / Načíst</button>
-        <button id="refreshBtn" class="btn">Aktualizovat</button>
-      </div>
-      <div id="status" class="status muted">Zadej ID nebo název a klikni „Hledat / Načíst“.</div>
-    </section>
+    <div id="results"></div>
 
-    <section id="notice" class="notice hidden">⚠️ Zobrazená data nejsou živá — použit fallback nebo proxy. (API může blokovat CORS.)</section>
-
-    <section class="meta">
-      <div id="stationName" class="station-name"></div>
-      <div id="lastUpdated" class="muted"></div>
-    </section>
-
-    <section id="list" class="list"></section>
-
-    <footer class="footer muted">
-      Pokud chceš spolehlivé živé načítání bez proxy, je třeba udělat server-side proxy (edge function) nebo povolit CORS na zdrojovém API.
-    </footer>
-  </main>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
