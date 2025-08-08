@@ -1,16 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Odjezdy MHD</title>
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Odjezdy MHD — live (dark)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-black text-white font-sans">
-  <div id="root" class="p-4 max-w-2xl mx-auto"></div>
-  <script src="app.js"></script>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>📍 Odjezdy MHD</h1>
+      <p class="subtitle">Tmavý režim only — zobrazování odjezdů z PID tabulí</p>
+    </header>
+
+    <section class="controls">
+      <label class="label">ID zastávky
+        <input id="stationInput" class="input" type="text" placeholder="Zadej ID zastávky (např. 10533)" value="10533" />
+      </label>
+
+      <div class="controls-row">
+        <button id="loadBtn" class="btn primary">Načíst</button>
+        <button id="refreshBtn" class="btn">Aktualizovat</button>
+        <label class="small">
+          <input id="useProxy" type="checkbox" /> použít CORS proxy (corsproxy.io)
+        </label>
+      </div>
+
+      <div id="status" class="status"></div>
+    </section>
+
+    <section id="notice" class="notice hidden">⚠️ Zobrazená data jsou náhradní / demo — nepodařilo se načíst živá data z API.</section>
+
+    <section class="meta">
+      <span id="stationName"></span>
+      <span id="lastUpdated" class="muted"></span>
+    </section>
+
+    <section id="list" class="list">
+      <!-- seznam odjezdů sem přijde -->
+    </section>
+
+    <footer class="footer">
+      <small>Tip: pokud se nenačítá, API blokuje CORS — zkus zapnout "použít CORS proxy" nebo nasadit vlastní server/edge funkci.</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
