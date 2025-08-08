@@ -3,45 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Odjezdy MHD — live (dark)</title>
+  <title>Odjezdy — Ústecký kraj (dark)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
     <header class="header">
-      <h1>📍 Odjezdy MHD</h1>
-      <p class="subtitle">Tmavý režim only — zobrazování odjezdů z PID tabulí</p>
+      <div>
+        <h1>📍 Odjezdy (Ústecký kraj)</h1>
+        <p class="subtitle">Tmavý mód — data z tabule.dopravauk.cz (QRide)</p>
+      </div>
+      <div class="header-actions">
+        <label class="small muted">Proxy
+          <input id="useProxy" type="checkbox" />
+        </label>
+      </div>
     </header>
 
     <section class="controls">
-      <label class="label">ID zastávky
-        <input id="stationInput" class="input" type="text" placeholder="Zadej ID zastávky (např. 10533)" value="10533" />
-      </label>
-
-      <div class="controls-row">
-        <button id="loadBtn" class="btn primary">Načíst</button>
+      <div class="row">
+        <input id="stationInput" class="input" placeholder="Zadej ID zastávky (např. 1737) nebo název" />
+        <button id="searchBtn" class="btn primary">Hledat / Načíst</button>
         <button id="refreshBtn" class="btn">Aktualizovat</button>
-        <label class="small">
-          <input id="useProxy" type="checkbox" /> použít CORS proxy (corsproxy.io)
-        </label>
       </div>
-
-      <div id="status" class="status"></div>
+      <div id="status" class="status muted">Zadej ID nebo název a klikni „Hledat / Načíst“.</div>
     </section>
 
-    <section id="notice" class="notice hidden">⚠️ Zobrazená data jsou náhradní / demo — nepodařilo se načíst živá data z API.</section>
+    <section id="notice" class="notice hidden">⚠️ Zobrazená data nejsou živá — použit fallback nebo proxy. (API může blokovat CORS.)</section>
 
     <section class="meta">
-      <span id="stationName"></span>
-      <span id="lastUpdated" class="muted"></span>
+      <div id="stationName" class="station-name"></div>
+      <div id="lastUpdated" class="muted"></div>
     </section>
 
-    <section id="list" class="list">
-      <!-- seznam odjezdů sem přijde -->
-    </section>
+    <section id="list" class="list"></section>
 
-    <footer class="footer">
-      <small>Tip: pokud se nenačítá, API blokuje CORS — zkus zapnout "použít CORS proxy" nebo nasadit vlastní server/edge funkci.</small>
+    <footer class="footer muted">
+      Pokud chceš spolehlivé živé načítání bez proxy, je třeba udělat server-side proxy (edge function) nebo povolit CORS na zdrojovém API.
     </footer>
   </main>
 
